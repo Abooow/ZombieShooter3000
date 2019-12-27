@@ -25,16 +25,16 @@ class Transform():
 
 
     def look_at(self, target) -> None:
-        ''' rotates the Transform so it's facing the target.
+        ''' rotates the Transform so it's facing the targets position.
 
-        :param target (Transform): the target to look at
+        :param target (Vector2): the target position to look at
 
         :returns: NoReturn
         :rtype: None
         '''
 
-        delta_x = self.position.x - target.position.x
-        delta_y = self.position.y - target.position.y
+        delta_x = self.position.x - target.x
+        delta_y = self.position.y - target.y
 
         self.rotation = -(math.atan2(delta_y, delta_x) * (180 / math.pi) - 90)
 

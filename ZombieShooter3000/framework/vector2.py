@@ -76,23 +76,39 @@ class Vector2():
 
 
     def __add__(self, other):
-        return Vector2(self.x + other.x, self.y + other.y)
+        if type(other) is float or type(other) is int:
+            return Vector2(self.x + other, self.y + other)
+        elif type(other) is Vector2:
+            return Vector2(self.x + other.x, self.y + other.y)
 
 
     def __sub__(self, other):
-        return Vector2(self.x - other.x, self.y - other.y)
+        if type(other) is float or type(other) is int:
+            return Vector2(self.x - other, self.y - other)
+        elif type(other) is Vector2:
+            return Vector2(self.x - other.x, self.y - other.y)
 
 
     def __mul__(self, other):
-        return Vector2(self.x * other, self.y * other)
+        if type(other) is float or type(other) is int:
+            return Vector2(self.x * other, self.y * other)
+        elif type(other) is Vector2:
+            return Vector2(self.x * other.x, self.y * other.y)
 
 
     def __floordiv__(self, other):
-        return Vector2(self.x // other.x, self.y // other.y)
+        if type(other) is float or type(other) is int:
+            return Vector2(self.x // other, self.y // other)
+        elif type(other) is Vector2:
+            return Vector2(int(self.x // other.x), int(self.y // other.y))
 
 
     def __div__(self, other):
-        return Vector2(self.x / other, self.y / other)
+        if type(other) is float or type(other) is int:
+            return Vector2(self.x / other, self.y / other)
+        elif type(other) is Vector2:
+            return Vector2(self.x / other.x, self.y / other.y)
+
 
 
 UP = Vector2(0, -1)     # a Vector2 pointing up

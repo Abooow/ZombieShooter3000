@@ -33,6 +33,18 @@ class GameObject():
         pass
 
 
+    def on_render(self, surface) -> None:
+        ''' a method that is invoked when the GameObject about to render
+
+        :param surface (Surface): the surface this GameObject will render on
+
+        :returns: NoReturn
+        :rtype: None
+        '''
+
+        pass
+
+
     def destroy(self) -> None:
         ''' destroys this gameObject
 

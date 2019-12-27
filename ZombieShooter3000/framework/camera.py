@@ -12,17 +12,18 @@ class Camera():
     '''
 
 
-    def __init__(self, transform, size, offset, object_handler):
+    def __init__(self, surface, object_handler, transform, size, offset):
         '''
         :param position (Vector2): the Camera position
         :param size (Vector2): the size of the Camera
         :param object_handler (ObjectHandler): the ObjectHandler attached to this Camera to keep track of all GameObjects
         '''
 
+        self.surface = surface
+        self._object_handler = object_handler
         self.transform = transform
         self.size = size
         self.offset = offset
-        self._object_handler = object_handler
 
 
     def zoom(self, amount, to=Vector2(0, 0)) -> None:
@@ -73,7 +74,7 @@ class Camera():
                        (point.y * self.transform.scale.y - self.transform.position.y))
 
 
-    def render(self, surface) -> None:
+    def render(self) -> None:
         ''' renders all GameObjects
 
         :param surface (Surface): the Surface to render all GameObject on
@@ -87,6 +88,8 @@ class Camera():
         for obj in objects:
             obj_transform = obj.transform
             obj_renderer = obj.sprite_renderer
+
+            obj.on_render(self.surface)
 
             if obj_renderer.sprite is None:
                 continue
@@ -120,4 +123,4 @@ class Camera():
                 sprite.fill(obj_renderer.color, None, pygame.BLEND_RGBA_MULT)
 
             # draw the image
-            surface.blit(sprite, new_position)
+            self.surface.blit(sprite, new_position)

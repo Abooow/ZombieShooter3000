@@ -25,7 +25,7 @@ pygame.display.set_caption('Zombie Shooter 3000')
 #config.font = pygame.font.SysFont('Tahoma',18, True, False)
 
 # set the current screen to 
-utils.current_screen = TestScreen()
+utils.current_screen = TestScreen(window)
 
 # clock is used to get a framerate of 60fps
 clock = pygame.time.Clock()

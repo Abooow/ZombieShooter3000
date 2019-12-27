@@ -18,15 +18,16 @@ from framework.components.sprite_renderer import SpriteRenderer
 
 
 class TestScreen(Screen):
-    def __init__(self):
+    def __init__(self, surface):
+
+        self.objectHandler = ObjectHandler()
+        self.camera = Camera(surface, self.objectHandler, Transform(None), Vector2(1024, 700), Vector2(0, 0))
+
         super().__init__()
                 
 
     def load_content(self):
         super().load_content()
-
-        self.objectHandler = ObjectHandler()
-        self.camera = Camera(Transform(None), Vector2(1024, 700), Vector2(0, 0), self.objectHandler)
 
         self.zombie1 = GameObject(Vector2(100, 100))
         self.zombie1.sprite_renderer.sprite = pygame.image.load('0.png')
@@ -34,7 +35,7 @@ class TestScreen(Screen):
 
         self.zombies = []
 
-        for i in range(100):
+        for i in range(50):
             copy = self.zombie1.copy()
             copy.sprite_renderer.sorting_order = 1
             copy.transform.position = Vector2(random.randint(0, 3024), random.randint(0, 1500))
@@ -48,34 +49,35 @@ class TestScreen(Screen):
 
         # --------------------------------------- tilemap
 
-        map = [['grass'] * 100 for i in range(100)]
+        map = [['grass'] * 50 for i in range(30)]
 
         for y in range(len(map)):
-            for x in range(y):
+            for x in range(len(map[y])):
                 if random.random() < 0.2:
-                    map[x][y] = 'gravel'
+                    map[y][x] = 'gravel'
 
         grassTile = Tile('grass', pygame.image.load('grass.png'))
         gravelTile = Tile('gravel', pygame.image.load('gravel.png'))
 
-        self.tilemap = Tilemap(self.camera, map, [grassTile, gravelTile], Vector2(32, 32), Vector2(), 0)
+        tilemap = Tilemap(self.camera, map, [grassTile, gravelTile], Vector2(64, 64), Vector2(), 0)
 
+        self.objectHandler.instantiate(tilemap)
 
 
     def update(self, delta_time):
         super().update(delta_time)
 
-        if event_handler.is_key_down(pygame.K_UP):
-            self.zombie1.transform.position += self.zombie1.transform.forward() * 10
 
         if event_handler.is_key_down(pygame.K_w):
-            self.camera.transform.position.y -= 10
+            self.zombie1.transform.position += Vector2(0, -1) * 10
         if event_handler.is_key_down(pygame.K_s):
-            self.camera.transform.position.y += 10
+            self.zombie1.transform.position += Vector2(0, 1) * 10
         if event_handler.is_key_down(pygame.K_a):
-            self.camera.transform.position.x -= 10
+            self.zombie1.transform.position += Vector2(-1, 0) * 10
         if event_handler.is_key_down(pygame.K_d):
-            self.camera.transform.position.x += 10
+            self.zombie1.transform.position += Vector2(1, 0) * 10
+
+        self.camera.transform.position = self.zombie1.transform.position * self.camera.transform.scale - self.camera.size * 0.5
 
         if event_handler.is_key_down(pygame.K_q):
             self.camera.zoom(0.99, self.camera.world_to_screen_point(self.zombie1.transform.position))
@@ -91,11 +93,10 @@ class TestScreen(Screen):
             self.zombie1.destroy()
 
 
-        self.zombie1.transform.look_at(Transform(None, 
-                                                 self.camera.screen_to_world_point(Vector2.tuple_to_vector2(pygame.mouse.get_pos()))))
+        self.zombie1.transform.look_at(self.camera.screen_to_world_point(Vector2.tuple_to_vector2(pygame.mouse.get_pos())))
 
         for zombie in self.zombies:
-            zombie.transform.look_at(self.zombie1.transform)
+            zombie.transform.look_at(self.zombie1.transform.position)
             #zombie.transform.position += zombie.transform.forward()
 
         #self.objectHandler.update(delta_time)
@@ -104,5 +105,4 @@ class TestScreen(Screen):
     def draw(self, surface):
         super().draw(surface)
 
-        self.tilemap.draw(surface)
-        self.camera.render(surface)
+        self.camera.render()
