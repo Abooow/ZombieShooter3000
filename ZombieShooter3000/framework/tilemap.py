@@ -11,7 +11,7 @@ class Tilemap(GameObject):
 
     def __init__(self, camera, map, tiles, tile_size, position, sorting_order=0):
         '''
-        :param camera (Camera): 
+        :param camera (Camera): the Camera that is attached to this GameObject
         :param map (list[list[str]]): the map to draw
         :param tiles (list[Tile]): a list of Tiles to use on the map
         :param tile_size (Vector2): the size of each Tile
