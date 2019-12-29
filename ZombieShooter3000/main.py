@@ -52,7 +52,7 @@ def main() -> None:
         utils.current_screen.draw(window)       # draw everything in the current screen
         pygame.display.update()                 # render everything
 
-        clock.tick(60) # set the FPS to 60
+        clock.tick(100) # set the FPS to 100
 
 
 if __name__ == '__main__':

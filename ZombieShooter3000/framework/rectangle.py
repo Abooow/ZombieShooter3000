@@ -75,8 +75,8 @@ class Rectangle():
         :param point (Vector2): the coordinates to check for inclusion in this Rectangle.
         '''
 
-        return (point.y > self.top() and point.y < self.bottom() and
-                point.x > self.left() and point.x < self.right())
+        return (point.y >= self.top() and point.y <= self.bottom() and
+                point.x >= self.left() and point.x <= self.right())
 
 
     def copy(self):

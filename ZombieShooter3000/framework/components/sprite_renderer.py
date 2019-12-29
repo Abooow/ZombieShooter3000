@@ -8,7 +8,7 @@ class SpriteRenderer():
 
     def __init__(self, gameobject, sprite=None, source_rect=None, color=None, sorting_order=0):
         '''
-        :param gameobject (GameObject): the game object this component is attached to
+        :param gameobject (GameObject): the game object this SpriteRenderer is attached to
         :param sprite (Surface): the sprite to render
         :param source_rect (Rectangle): represents a smaller portion of the sprite to draw
         :param color (tuple[int,int,int,int]): rendering color for the sprite (R, G, B, A), use None for no color

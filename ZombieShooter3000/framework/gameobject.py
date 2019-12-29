@@ -1,5 +1,6 @@
 
 from framework.vector2 import Vector2
+from framework.components.collider import Collider
 from framework.components.transform import Transform
 from framework.components.sprite_renderer import SpriteRenderer
 
@@ -16,8 +17,11 @@ class GameObject():
 
         # the Transform of this GameObject
         self.transform = Transform(self, position)
-        # the SpritrRenderer of this GameObject
+        # the SpriteRenderer of this GameObject
         self.sprite_renderer = SpriteRenderer(self)
+        # the Collider of this GameObject
+        self.collider = Collider(self)
+
         self._flagged_as_destroy = False
 
 
@@ -62,6 +66,7 @@ class GameObject():
         obj_copy = GameObject()
         obj_copy.sprite_renderer = self.sprite_renderer.copy()
         obj_copy.transform = self.transform.copy()
+        obj_copy.collider = self.collider.copy()
 
         return obj_copy
 

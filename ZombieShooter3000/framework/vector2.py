@@ -103,7 +103,7 @@ class Vector2():
             return Vector2(int(self.x // other.x), int(self.y // other.y))
 
 
-    def __div__(self, other):
+    def __truediv__(self, other):
         if type(other) is float or type(other) is int:
             return Vector2(self.x / other, self.y / other)
         elif type(other) is Vector2:

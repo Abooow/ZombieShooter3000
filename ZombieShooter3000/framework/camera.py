@@ -1,5 +1,4 @@
-'''
-'''
+
 
 import pygame
 import math
@@ -8,15 +7,17 @@ from framework.vector2 import Vector2
 
 
 class Camera():
-    '''
+    ''' camera is a device that allows the player to view the world with all GameObject
     '''
 
 
     def __init__(self, surface, object_handler, transform, size, offset):
         '''
-        :param position (Vector2): the Camera position
-        :param size (Vector2): the size of the Camera
+        :param surface (Surface): the Surface to render all objects on
         :param object_handler (ObjectHandler): the ObjectHandler attached to this Camera to keep track of all GameObjects
+        :param transform (Transform): the Transform that is attached to this Camera
+        :param size (Vector2): the rendering size of the Camera
+        :param offset (Vector2): the offset of the rendering
         '''
 
         self.surface = surface
@@ -76,8 +77,6 @@ class Camera():
 
     def render(self) -> None:
         ''' renders all GameObjects
-
-        :param surface (Surface): the Surface to render all GameObject on
 
         :returns: NoReturn
         :rtype: None
