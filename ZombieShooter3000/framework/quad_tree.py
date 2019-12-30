@@ -13,33 +13,34 @@ class QuadTree():
 
         self.boundary = boundary
         self.capacity = capacity
-        self.transforms = []
+        self.points = []
 
         self._divided = False
 
 
-    def insert(self, transform):
+    def insert(self, point, object):
         '''
 
-        :param transform (Transform):
+        :param point (Point):
+        :param object:
 
         '''
 
-        if not self.boundary.contains_point(transform.position):
+        if not self.boundary.contains_point(point):
             return False
 
-        if len(self.transforms) < self.capacity:
-            self.transforms.append(transform)
+        if len(self.points) < self.capacity:
+            self.points.append((point, object))
             return True
         else:
             if not self._divided:
                 self.subdivide()
                 self._divided = True
 
-        if self.north_west.insert(transform): return True
-        if self.north_east.insert(transform): return True
-        if self.south_west.insert(transform): return True
-        if self.south_east.insert(transform): return True
+        if self.north_west.insert(point, object): return True
+        if self.north_east.insert(point, object): return True
+        if self.south_west.insert(point, object): return True
+        if self.south_east.insert(point, object): return True
 
 
     def subdivide(self):
@@ -59,17 +60,18 @@ class QuadTree():
 
     def query(self, range):
         found=[]
+
         if not self.boundary.intersects(range):
             return []
         else:
-            for transform in self.transforms:
-                if range.contains_point(transform.position):
-                    found.append(transform)
+            for point in self.points:
+                if range.contains_point(point[0]):
+                    found.append(point[1])
 
         if self._divided:
             found += self.north_west.query(range)
-            found +=self.north_east.query(range)
-            found +=self.south_west.query(range)
-            found +=self.south_east.query(range)
+            found += self.north_east.query(range)
+            found += self.south_west.query(range)
+            found += self.south_east.query(range)
 
         return found

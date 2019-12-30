@@ -28,7 +28,19 @@
     <Compile Include="event_handler.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="framework\animation.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="framework\animation_old.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="framework\camera.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="framework\components\animator.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="framework\components\animator_old.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="framework\components\collider.py">

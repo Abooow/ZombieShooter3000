@@ -24,14 +24,14 @@ class SpriteRenderer():
 
 
 
-    def copy(self):
+    def copy(self, gameobject):
         ''' returns a copy of this SpriteRenderer
 
         :returns: a copy of this SpriteRenderer
         :rtype: SpriteRenderer
         '''
 
-        renderer_copy = SpriteRenderer(self.gameobject, self.sprite, self.source_rect, self.color, self.sorting_order)
+        renderer_copy = SpriteRenderer(gameobject, self.sprite, self.source_rect, self.color, self.sorting_order)
         renderer_copy.enabled = self.enabled
         
         return renderer_copy

@@ -1,6 +1,6 @@
 
 import math
-import framework.vector2 as vector
+from framework.vector2 import Vector2
 
 
 class Transform():
@@ -8,7 +8,7 @@ class Transform():
     '''
 
 
-    def __init__(self, gameobject, position=vector.ZERO, rotation=0, scale=vector.ONE, origin=vector.ZERO):
+    def __init__(self, gameobject, position=Vector2(0, 0), rotation=0, scale=Vector2(1, 1), origin=Vector2(0, 0)):
         '''
         :param gameobject (GameObject): the gameObject this Transform is attached to
         :param position (Vector2): the position of this Transform
@@ -39,7 +39,7 @@ class Transform():
         self.rotation = -(math.atan2(delta_y, delta_x) * (180 / math.pi) - 90)
 
 
-    def forward(self) -> vector.Vector2:
+    def forward(self) -> Vector2:
         ''' the forward vector of this Transform
 
         :returns: a normalized vector pointing forward
@@ -47,17 +47,17 @@ class Transform():
         '''
 
         # 57.295 = deg to rad
-        return vector.Vector2(-math.sin(self.rotation / 57.295), -math.cos(self.rotation / 57.295))
+        return Vector2(-math.sin(self.rotation / 57.295), -math.cos(self.rotation / 57.295))
 
 
-    def copy(self):
+    def copy(self, gameObject):
         ''' returns a copy of this Transform
 
         :returns: a copy of this Transform
         :rtype: Transform
         '''
 
-        transform_copy = Transform(self.gameobject)
+        transform_copy = Transform(gameObject)
         transform_copy.position = self.position.copy()
         transform_copy.rotation = self.rotation
         transform_copy.scale = self.scale.copy()

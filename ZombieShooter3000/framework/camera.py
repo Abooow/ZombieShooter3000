@@ -122,4 +122,4 @@ class Camera():
                 sprite.fill(obj_renderer.color, None, pygame.BLEND_RGBA_MULT)
 
             # draw the image
-            self.surface.blit(sprite, new_position)
+            self.surface.blit(sprite, new_position, obj_renderer.source_rect)

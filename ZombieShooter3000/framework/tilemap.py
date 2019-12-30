@@ -25,7 +25,8 @@ class Tilemap(GameObject):
         self._map = map[:]
         self._tiles = {}
         self._tile_size = tile_size
-        self.sprite_renderer.sorting_order = sorting_order
+
+        self.add_sprite_renderer(sorting_order=sorting_order)
 
         for tile in tiles:
             self._tiles[tile.name] = tile

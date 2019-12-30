@@ -7,7 +7,7 @@ class Collider():
     ''' Collider represents a rectangle that allows a GameObject to collide
     '''
 
-    def __init__(self, gameobject, tag='', size=Vector2(0, 0), offset=Vector2(0, 0), is_trigger=False):
+    def __init__(self, gameobject, tag='', size=Vector2(0, 0), offset=Vector2(0, 0), is_trigger=False, is_static=False):
         '''
         :param gameobject (GameObject): the game object this Collider is attached to
         :param tag (str): the tag of this Collider
@@ -21,11 +21,12 @@ class Collider():
         self.size = size
         self.offset = offset
         self.is_trigger = is_trigger
+        self.is_static = is_static
 
         self.on_collision_enter = None
         self.on_trigger_enter = None
 
-        self.enabled = False
+        self.enabled = True
 
 
     def get_rect(self) -> Rectangle:
@@ -41,11 +42,11 @@ class Collider():
         return Rectangle(position, size)
 
 
-    def copy(self):
+    def copy(self, gameObject):
         ''' returns a copy of this Collider
 
         :returns: a copy of this Collider
         :rtype: Collider
         '''
 
-        return Collider(self.gameobject, self.tag, self.size.copy(), self.offset.copy(), self.is_trigger)
+        return Collider(gameObject, self.tag, self.size.copy(), self.offset.copy(), self.is_trigger)

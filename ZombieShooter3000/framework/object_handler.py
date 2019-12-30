@@ -18,7 +18,6 @@ class ObjectHandler():
         self.world_size = world_size
 
         self._objects = []
-        self._objects_len = 0
 
 
     def update(self, delta_time) -> None:
@@ -38,21 +37,22 @@ class ObjectHandler():
             if obj.collider is None or not obj.collider.enabled:
                 continue
 
-            quad_tree.insert(obj.transform)
+            # insert object
+            quad_tree.insert(point=obj.transform.position, object=obj)
 
+        # update objects
         for obj in self._objects:
             # update object
             obj.update(delta_time)
 
             # object have a collider
-            if obj.collider is not None and obj.collider.enabled:
+            if obj.collider is not None and obj.collider.enabled and not obj.collider.is_static:
                 # create a range to check other objects
                 range = obj.collider.get_rect()
                 range.position -= range.size * 1.5
                 range.size *= 3
 
                 # get all objects within the range
-
                 others = quad_tree.query(range)
                 
                 if others is None:
@@ -60,29 +60,27 @@ class ObjectHandler():
 
                 # check for collisions
                 for other in others:
-                    if other.gameobject is obj:
+                    if other is obj:
                         continue
                     
                     # collided
-                    if obj.collider.get_rect().intersects(other.gameobject.collider.get_rect()):
+                    if obj.collider.get_rect().intersects(other.collider.get_rect()):
                         if obj.collider.is_trigger:
                             if obj.collider.on_trigger_enter:
                                 obj.collider.on_trigger_enter(other)
                         else:
                             if obj.collider.on_collision_enter:
                                 obj.collider.on_collision_enter(other)
-            
-                        if other.gameobject._flagged_as_destroy:
-                            self._objects.remove(other.gameobject)
-                            self._objects_len -= 1
+           
+                        if other._flagged_as_destroy:
+                            self._objects.remove(other)
 
             if obj._flagged_as_destroy:
                 self._objects.remove(obj)
-                self._objects_len -= 1
 
 
     def get_objects(self) -> list:
-        ''' get all instansiated objects
+        ''' get all instantiated objects
 
         :returns: all instansiated objects
         :rtype: list[GameObject]
@@ -92,15 +90,13 @@ class ObjectHandler():
 
 
     def instantiate(self, object):
-        ''' instantiates a gameObject
+        ''' instantiate a gameObject
 
         :param object (GameObject): the gameObject to instantiate
 
         :returns: the instantiated clone
         :rtype: GameObject
         '''
-
-        self._objects_len += 1
 
         self._objects.append(object)
         self._objects.sort()
