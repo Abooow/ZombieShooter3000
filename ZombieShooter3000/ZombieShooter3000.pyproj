@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="animation_manager.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="config.py">
       <SubType>Code</SubType>
     </Compile>
@@ -31,16 +34,10 @@
     <Compile Include="framework\animation.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="framework\animation_old.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="framework\camera.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="framework\components\animator.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="framework\components\animator_old.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="framework\components\collider.py">
@@ -80,6 +77,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.py" />
+    <Compile Include="screens\death_screen.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="screens\game_screen.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="screens\load_screen.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="screens\menu_screen.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="screens\new_screen.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="screens\object_screen.py">
       <SubType>Code</SubType>
     </Compile>
@@ -95,7 +107,64 @@
     <Compile Include="scripts\blood.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="scripts\bullet.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\characters\big_zombie.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\characters\character.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\characters\enemy.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\characters\player.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\characters\zombie.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\characters\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\enemy_spawner.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\enemy_wave.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\item.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\weapons\ak47.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\weapons\glock.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\weapons\pump_shotgun.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\weapons\shotgun.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\weapons\uzi.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\weapons\weapon.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\weapons\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="scripts\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="sound_manager.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="sprite_manager.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="surface_change.py">
@@ -110,6 +179,8 @@
     <Folder Include="framework\components\" />
     <Folder Include="scripts\" />
     <Folder Include="screens\" />
+    <Folder Include="scripts\characters\" />
+    <Folder Include="scripts\weapons\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

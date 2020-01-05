@@ -15,7 +15,7 @@ class Tilemap(GameObject):
         :param map (list[list[str]]): the map to draw
         :param tiles (list[Tile]): the list of Tiles to use
         :param tile_size (Vector2): the size of each Tile
-        :param position (Vector2): the position of this Tilemap
+        :param position (Vector2): the starting position of this Tilemap
         :param sorting_order (int): the rendering order of this TileMap
         '''
 

@@ -13,6 +13,7 @@ class Animator():
         self.animations = {}
 
         self.current_animation = None
+        self._current_animation_name = ''
 
 
     def update(self, delta_time) -> None:
@@ -46,6 +47,7 @@ class Animator():
 
             if self.current_animation is None:
                 self.current_animation = animation
+                self._current_animation_name = name
 
 
     def play(self, animation_name, reset=True) -> None:
@@ -57,11 +59,20 @@ class Animator():
         :returns: NoReturn
         :rtype: None
         '''
-        
-        if reset:
-            self._animations[animation_name].reset()
+
+        if self._current_animation_name == animation_name and not self.current_animation._done:
+            return
+
+        old_frame = self.current_animation._current_frame
+        self.current_animation.reset()
 
         self.current_animation = self.animations[animation_name]
+        self._current_animation_name = animation_name
+
+        if reset:
+            self.current_animation.reset()
+        else:
+            self.current_animation._current_frame = old_frame
 
 
     def copy(self, gameObject):
@@ -69,7 +80,10 @@ class Animator():
         '''
 
         animator_copy = Animator(gameObject)
-        animator_copy.animations = self.animations
-        animator_copy.current_animation = self.current_animation
+
+        for anim_name in self.animations:
+            animator_copy.animations[anim_name] = self.animations[anim_name].copy()
+
+        animator_copy.current_animation = self.current_animation.copy()
 
         return animator_copy

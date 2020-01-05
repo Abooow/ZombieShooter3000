@@ -52,9 +52,9 @@ class Camera():
     def screen_to_world_point(self, point) -> Vector2:
         ''' transforms a point from screen space into world space
 
-        :param point (Vector2): the Vector2 to transform to a world point
+        :param point (Vector2): the Vector2 to convert to a world point
 
-        :returns: 
+        :returns: a new point that is converted to world space
         :rtype: Vector2
         '''
 
@@ -65,9 +65,9 @@ class Camera():
     def world_to_screen_point(self, point) -> Vector2:
         ''' transforms a point from world space into screen space
 
-        :param point (Vector2): the Vector2 to transform to a screen point
+        :param point (Vector2): the Vector2 to convert to a screen point
 
-        :returns: 
+        :returns: a new point that is converted to screen space
         :rtype: Vector2
         '''
 
@@ -90,7 +90,7 @@ class Camera():
 
             obj.on_render(self.surface)
 
-            if obj_renderer.sprite is None:
+            if obj_renderer is None or obj_renderer.sprite is None:
                 continue
 
             # get the size of the image before rotation and scaling

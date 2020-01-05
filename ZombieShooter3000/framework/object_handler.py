@@ -11,7 +11,8 @@ class ObjectHandler():
 
     def __init__(self, world_position, world_size):
         '''
-        :param window_size (Vector2): the size of the window
+        :param world_position (Vector2): the position of the world
+        :param window_size (Vector2): the size of the world
         '''
 
         self.world_position = world_position
@@ -29,7 +30,7 @@ class ObjectHandler():
         :rtype: None
         '''
         
-        quad_tree = QuadTree(Rectangle(self.world_position, self.world_size), 4)
+        quad_tree = QuadTree(Rectangle(self.world_position, self.world_size), 3)
 
         # buid the quad_tree
         for obj in self._objects:
@@ -40,6 +41,7 @@ class ObjectHandler():
             # insert object
             quad_tree.insert(point=obj.transform.position, object=obj)
 
+
         # update objects
         for obj in self._objects:
             # update object
@@ -49,8 +51,8 @@ class ObjectHandler():
             if obj.collider is not None and obj.collider.enabled and not obj.collider.is_static:
                 # create a range to check other objects
                 range = obj.collider.get_rect()
-                range.position -= range.size * 1.5
-                range.size *= 3
+                range.position -= range.size
+                range.size *= 2
 
                 # get all objects within the range
                 others = quad_tree.query(range)
@@ -63,26 +65,37 @@ class ObjectHandler():
                     if other is obj:
                         continue
                     
-                    # collided
-                    if obj.collider.get_rect().intersects(other.collider.get_rect()):
-                        if obj.collider.is_trigger:
-                            if obj.collider.on_trigger_enter:
-                                obj.collider.on_trigger_enter(other)
-                        else:
-                            if obj.collider.on_collision_enter:
-                                obj.collider.on_collision_enter(other)
-           
-                        if other._flagged_as_destroy:
-                            self._objects.remove(other)
+                    # if obj have been destroyed
+                    if obj._flagged_as_destroy or obj.collider is None:
+                        break
 
+                    # if other have been destroyed
+                    if other._flagged_as_destroy or other.collider is None:
+                        continue
+
+                    # obj and other have collided
+                    if obj.collider.get_rect().intersects(other.collider.get_rect()):
+                        # on trigger enter
+                        if other.collider.is_trigger:
+                            if obj.collider.on_trigger_enter is not None:
+                                obj.collider.on_trigger_enter(other)
+                        # on collision enter
+                        else:
+                            if obj.collider.on_collision_enter is not None:
+                                obj.collider.on_collision_enter(other)
+
+
+        # remove all objects that have been flagged_as_destroy
+        for obj in self._objects:
             if obj._flagged_as_destroy:
                 self._objects.remove(obj)
+                del obj
 
 
     def get_objects(self) -> list:
         ''' get all instantiated objects
 
-        :returns: all instansiated objects
+        :returns: all instantiated objects
         :rtype: list[GameObject]
         '''
 
@@ -94,11 +107,12 @@ class ObjectHandler():
 
         :param object (GameObject): the gameObject to instantiate
 
-        :returns: the instantiated clone
+        :returns: the instantiated gameObject
         :rtype: GameObject
         '''
 
         self._objects.append(object)
-        self._objects.sort()
+        #self._objects.sort()
+        self._objects.sort(key=lambda obj: 0 if obj.sprite_renderer is None else obj.sprite_renderer.sorting_order)
 
         return object

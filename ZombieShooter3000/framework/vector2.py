@@ -3,7 +3,7 @@ import math
 
 
 class Vector2():
-    ''' describes a 2D-vector.
+    ''' describes a 2D-vector
     '''
 
 
@@ -57,11 +57,17 @@ class Vector2():
         '''
 
         length = self.length()
-        return Vector2(self.x / length, self.y / length)
+        if length == 0:
+            return Vector2(0, 0)
+        else:
+            return Vector2(self.x / length, self.y / length)
 
 
     def to_tuple(self) -> tuple:
-        '''
+        ''' converts this Vector2 to a tuple[int,int] (x, y)
+        
+        :returns: a tuple version of this Vector2
+        :rtype: tuple[int,int]
         '''
 
         return (self.x, self.y)
@@ -73,6 +79,10 @@ class Vector2():
 
     def __gt__(self, value):
         return self.x > other.x and self.y > other.y
+
+
+    def __lt__(self, value):
+        return self.x < other.x and self.y < other.y
 
 
     def __add__(self, other):
@@ -96,13 +106,6 @@ class Vector2():
             return Vector2(self.x * other.x, self.y * other.y)
 
 
-    def __floordiv__(self, other):
-        if type(other) is float or type(other) is int:
-            return Vector2(self.x // other, self.y // other)
-        elif type(other) is Vector2:
-            return Vector2(int(self.x // other.x), int(self.y // other.y))
-
-
     def __truediv__(self, other):
         if type(other) is float or type(other) is int:
             return Vector2(self.x / other, self.y / other)
@@ -110,11 +113,8 @@ class Vector2():
             return Vector2(self.x / other.x, self.y / other.y)
 
 
-
-UP = Vector2(0, -1)     # a Vector2 pointing up
-DOWN = Vector2(0, 1)    # a Vector2 pointing down
-LEFT = Vector2(-1, 0)   # a Vector2 pointing left
-RIGHT = Vector2(1, 0)   # a Vector2 pointing right
-
-ZERO = Vector2(0, 0)    # a Vector2 with components 0, 0
-ONE = Vector2(1, 1)     # a Vector2 with components 1, 1
+    def __floordiv__(self, other):
+        if type(other) is float or type(other) is int:
+            return Vector2(self.x // other, self.y // other)
+        elif type(other) is Vector2:
+            return Vector2(int(self.x // other.x), int(self.y // other.y))

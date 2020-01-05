@@ -21,10 +21,10 @@ from framework.components.sprite_renderer import SpriteRenderer
 
 
 class TestScreen(Screen):
-    def __init__(self, surface):
+    def __init__(self):
 
-        self.objectHandler = ObjectHandler(Vector2(0, 0), Vector2(3024, 1500))
-        self.camera = Camera(surface, self.objectHandler, Transform(None), Vector2(1024, 700), Vector2(0, 0))
+        #self.objectHandler = ObjectHandler(Vector2(0, 0), Vector2(3024, 1500))
+        #self.camera = Camera(surface, self.objectHandler, Transform(None), Vector2(1024, 700), Vector2(0, 0))
 
         super().__init__()
                 
@@ -34,10 +34,11 @@ class TestScreen(Screen):
 
         #############################      WALK ANIMATION      ##############################
         walk_anim_frames = [pygame.image.load(f'content/sprites/animations/zombie/walk/frame{i}.png') for i in range(5)]
-
+        test_anim_frames = [pygame.image.load(f'content/sprites/animations/zombie/attack/frame{i}.png') for i in range(8)]
 
 
         walk_anim = anim.Animation(walk_anim_frames)
+        test_anim = anim.Animation(test_anim_frames)
 
         ######################################################################################
 
@@ -45,10 +46,12 @@ class TestScreen(Screen):
         self.zombie1.add_collider(size=Vector2(50, 50))
         self.zombie1.add_sprite_renderer(sprite=walk_anim_frames[0])
         self.zombie1.add_animator()
+
         self.zombie1.animator.add_animation('walk', walk_anim)
+        self.zombie1.animator.add_animation('test', test_anim)
 
         self.zombies = []
-        for i in range(200):
+        for i in range(100):
             copy = self.zombie1.copy()
 
             copy.collider.tag = str(i)
@@ -56,14 +59,13 @@ class TestScreen(Screen):
             copy.sprite_renderer.sorting_order = 1
             copy.transform.position = Vector2(random.randint(0, 3024), random.randint(0, 1500))
             
-            self.zombies.append(self.objectHandler.instantiate(copy))
+            self.zombies.append(self.instantiate(copy))
 
         
         self.zombie1.collider.on_collision_enter = self.on_trigger
         self.zombie1.collider.tag = 'player'
         self.zombie1.sprite_renderer.sorting_order = 2
-        self.zombie1.sprite_renderer.color = (255, 0, 0)
-        self.objectHandler.instantiate(self.zombie1)
+        self.instantiate(self.zombie1)
 
         # --------------------------------------- tilemap
 
@@ -79,27 +81,21 @@ class TestScreen(Screen):
 
         tilemap = Tilemap(self.camera, map, [grassTile, gravelTile], Vector2(64, 64), Vector2(), 0)
 
-        self.objectHandler.instantiate(tilemap)
+        #self.objectHandler.instantiate(tilemap)
+
 
     def on_trigger(self, other):
-        self.objectHandler.instantiate(Blood(other.transform.position))
+        self.instantiate(Blood(other.transform.position))
         other.destroy()
 
+
     def update(self, delta_time):
-        super().update(delta_time)
-
-        speed = 400 * (delta_time / 1000)
-
-        if event_handler.is_key_down(pygame.K_w):
-            self.zombie1.transform.position += Vector2(0, -1) * speed
-        if event_handler.is_key_down(pygame.K_s):
-            self.zombie1.transform.position += Vector2(0, 1) * speed
-        if event_handler.is_key_down(pygame.K_a):
-            self.zombie1.transform.position += Vector2(-1, 0) * speed
-        if event_handler.is_key_down(pygame.K_d):
-            self.zombie1.transform.position += Vector2(1, 0) * speed
-
-        self.camera.transform.position = self.zombie1.transform.position * self.camera.transform.scale - self.camera.size * 0.5
+        
+        if event_handler.is_mouse_pressed(1):
+            if self.zombie1.animator._current_animation_name == 'walk':
+                self.zombie1.animator.play('test')
+            else:
+                self.zombie1.animator.play('walk')
 
         if event_handler.is_key_down(pygame.K_q):
             self.camera.zoom(0.99, self.camera.world_to_screen_point(self.zombie1.transform.position))
@@ -111,20 +107,10 @@ class TestScreen(Screen):
         if event_handler.is_key_down(pygame.K_c):
             self.camera.transform.rotation += 1
 
-        if event_handler.is_key_pressed(pygame.K_SPACE):
-            self.zombie1.destroy()
-
-
-        self.zombie1.transform.look_at(self.camera.screen_to_world_point(Vector2.tuple_to_vector2(pygame.mouse.get_pos())))
 
         for zombie in self.zombies:
             zombie.transform.look_at(self.zombie1.transform.position)
             zombie.transform.position += zombie.transform.forward()
 
-        self.objectHandler.update(delta_time)
 
-
-    def draw(self, surface):
-        super().draw(surface)
-
-        self.camera.render()
+        super().update(delta_time)

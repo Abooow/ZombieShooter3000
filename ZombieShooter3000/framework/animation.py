@@ -1,20 +1,19 @@
 
 
-
-class Animation:
-    '''
+class Animation():
+    ''' A simulation of movement created by displaying a series of pictures
     '''
 
     def __init__(self, frames, framerate=12, loop=True):
         '''
-        :param frames (list[Surface]): the 
+        :param frames (list[Surface]): the animation frames
         :param framerate (int): the framerate of the Animation
         :param loop (bool): allow the Animation to loop 
         '''
         
         self.frames = frames
         self.framerate = framerate
-        self.loop = True
+        self.loop = loop
 
         # the playback speed of the Animation
         self.playbackspeed = 1
@@ -50,13 +49,14 @@ class Animation:
                 if self.loop:
                     self._current_frame = 0
                 else:
+                    self._current_frame -= 1
                     self._done = True
                     if self.on_done is not None:
                         self.on_done()
 
 
     def get_current_frame(self):
-        ''' get what frame that is currently being played
+        ''' get whatever frame that is currently being played
 
         :returns: the current frame
         :rtype: Surface
@@ -84,7 +84,7 @@ class Animation:
         :rtype: Animation
         '''
         
-        anim_copy = Animation(self.frames, self.loop)
-
+        anim_copy = Animation(self.frames, self.framerate, self.loop)
         anim_copy.on_done = self.on_done
-        return Animation(self.frames, self.loop)
+        
+        return anim_copy

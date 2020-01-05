@@ -8,8 +8,8 @@ class Tile():
     def __init__(self, name, sprite, source_rect=None):
         '''
         :param name (str): the name of this Tile
-        :param sprite (Surface): 
-        :param source_rect (Rectangle):
+        :param sprite (Surface): the sprite of this Tile
+        :param source_rect (Rectangle): represents a smaller portion of the sprite to draw
         '''
 
         self.name = name

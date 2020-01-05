@@ -3,10 +3,10 @@ from framework.vector2 import Vector2
 
 
 class Rectangle():
-    ''' describes a 2D-rectangle.
+    ''' describes a 2D-rectangle
     '''
 
-    def __init__(self, position=Vector2(), size=Vector2()):
+    def __init__(self, position=Vector2(0, 0), size=Vector2(0, 0)):
         '''
         :param position (Vector2): the position of the Rectangle
         :param size (Vector2): the size of the Rectangle
@@ -61,7 +61,7 @@ class Rectangle():
 
         :param other (Rectangle): the other Rectangle
 
-        :returns: True if this Rectangle intersects with the other Rectangle, oterwise False
+        :returns: True if this Rectangle intersects with the other Rectangle, otherwise False
         :rtype: bool
         '''
 
@@ -70,9 +70,12 @@ class Rectangle():
 
 
     def contains_point(self, point) -> bool:
-        ''' gets whether or not the provided point lies within the bounds of this Rectangle.
+        ''' gets whether or not the provided point lies within the bounds of this Rectangle
 
-        :param point (Vector2): the coordinates to check for inclusion in this Rectangle.
+        :param point (Vector2): the coordinates to check for inclusion in this Rectangle
+        
+        :returns: True if the point lies within the bounds of this Rectangle, otherwise False
+        :rtype: bool
         '''
 
         return (point.y >= self.top() and point.y <= self.bottom() and

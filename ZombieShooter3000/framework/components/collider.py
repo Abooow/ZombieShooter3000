@@ -14,6 +14,7 @@ class Collider():
         :param size (Vector2): the size of this Collider
         :param offset (Vector2): the local offset of the Collider
         :param is_trigger (bool): is this collider configured as a trigger?
+        :param is_static (bool): is this collider flagged as static?
         '''
 
         self.gameobject = gameobject
