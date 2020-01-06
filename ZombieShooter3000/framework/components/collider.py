@@ -24,16 +24,19 @@ class Collider():
         self.is_trigger = is_trigger
         self.is_static = is_static
 
+        # a delegate that is invoked whenever another Collider(not configured as a trigger) enters this Collider
         self.on_collision_enter = None
+        # a delegate that is invoked whenever another Collider(configured as a trigger) enters this Collider
         self.on_trigger_enter = None
 
+        # enabled collider is updated, disabled collider is not
         self.enabled = True
 
 
     def get_rect(self) -> Rectangle:
-        '''
+        ''' get the hitbox bounds of this collider
 
-        :returns:
+        :returns: the hitbox bounds of this collider
         :rtype: Rectangle
         '''
 
@@ -43,11 +46,13 @@ class Collider():
         return Rectangle(position, size)
 
 
-    def copy(self, gameObject):
+    def copy(self, gameobject):
         ''' returns a copy of this Collider
+
+        :param gameobject (GameObject): the gameObject that will be attached to the new Collider
 
         :returns: a copy of this Collider
         :rtype: Collider
         '''
 
-        return Collider(gameObject, self.tag, self.size.copy(), self.offset.copy(), self.is_trigger)
+        return Collider(gameobject, self.tag, self.size.copy(), self.offset.copy(), self.is_trigger)

@@ -48,22 +48,22 @@ class QuadTree():
 
 
     def query(self, range) -> list:
-        ''' get all objects within the specified range
+        ''' get all objects within the provided range
 
         :param range (Rectangle): the area to get objects from
 
-        :returns: all objects that is within the range
+        :returns: all objects that are within the range
         :rtype: list[object]
         '''
 
         found=[]
 
-        if not self.boundary.intersects(range):
-            return []
-        else:
+        if self.boundary.intersects(range):
             for point in self._points:
                 if range.contains_point(point[0]):
                     found.append(point[1])
+        else:
+            return []
 
         if self._divided:
             found += self.north_west.query(range)

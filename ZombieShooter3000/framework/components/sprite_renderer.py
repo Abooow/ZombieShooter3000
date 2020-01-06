@@ -27,6 +27,8 @@ class SpriteRenderer():
     def copy(self, gameobject):
         ''' returns a copy of this SpriteRenderer
 
+        :param gameobject (GameObject): the gameObject that will be attached to the new SpriteRenderer
+
         :returns: a copy of this SpriteRenderer
         :rtype: SpriteRenderer
         '''

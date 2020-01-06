@@ -140,10 +140,19 @@
     <Compile Include="scripts\weapons\ak47.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="scripts\weapons\death_bullet.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="scripts\weapons\glock.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="scripts\weapons\nuke.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="scripts\weapons\pump_shotgun.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scripts\weapons\scar.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="scripts\weapons\shotgun.py">

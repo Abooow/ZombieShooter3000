@@ -13,10 +13,11 @@ class Shotgun(Weapon):
 
 
     def __init__(self, owner):
-        super().__init__(owner=owner, bullet_offset=Vector2(47, 15), damage=30, spread=12, bullets=1000000, magazine_size=1, fire_rate=450)
+        super().__init__(owner=owner, bullet_offset=Vector2(47, 15), damage=30, spread=13, bullets=1000000, magazine_size=1, fire_rate=450)
         
-        self.bullet_speed = 700
-        self.bullet_max_distance = 760
+        self.name = 'SHOTGUN'
+        self.bullet_speed = 710
+        self.bullet_max_distance = 769
 
 
     def update(self, delta_time):
@@ -31,7 +32,7 @@ class Shotgun(Weapon):
         self.owner.animator.play('shotgun_shoot')
 
         # spawn bullets
-        for i in range(20):
+        for i in range(35):
             Screen.get_current_screen().instantiate(Bullet(self, self.bullet_speed, self.bullet_max_distance))
         
         super().on_shooting()

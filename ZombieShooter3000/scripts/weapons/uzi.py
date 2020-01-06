@@ -14,6 +14,7 @@ class Uzi(Weapon):
     def __init__(self, owner):
         super().__init__(owner=owner, bullet_offset=Vector2(47, 15), damage=20, spread=5, bullets=1000000, magazine_size=50, fire_rate=100)
         
+        self.name = 'UZI'
         self.bullet_speed = 720
 
 

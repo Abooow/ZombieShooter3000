@@ -28,6 +28,8 @@ class Weapon(Item):
         self.magazine_size = magazine_size
         self.fire_rate = fire_rate
 
+        self.name = 'unknown'
+
         self.can_shoot = True
         self.reloading = False
 

@@ -25,7 +25,7 @@ class Transform():
 
 
     def look_at(self, target) -> None:
-        ''' rotates the Transform so it's facing the targets position.
+        ''' rotates the Transform so it's facing the targets position
 
         :param target (Vector2): the target position to look at
 
@@ -40,7 +40,7 @@ class Transform():
 
 
     def forward(self) -> Vector2:
-        ''' the forward vector of this Transform
+        ''' get the forward vector of this Transform
 
         :returns: a normalized vector pointing forward
         :rtype: Vector2
@@ -50,14 +50,16 @@ class Transform():
         return Vector2(-math.sin(self.rotation / 57.295), -math.cos(self.rotation / 57.295))
 
 
-    def copy(self, gameObject):
+    def copy(self, gameobject):
         ''' returns a copy of this Transform
+
+        :param gameobject (GameObject): the gameObject that will be attached to the new Transform
 
         :returns: a copy of this Transform
         :rtype: Transform
         '''
 
-        transform_copy = Transform(gameObject)
+        transform_copy = Transform(gameobject)
         transform_copy.position = self.position.copy()
         transform_copy.rotation = self.rotation
         transform_copy.scale = self.scale.copy()

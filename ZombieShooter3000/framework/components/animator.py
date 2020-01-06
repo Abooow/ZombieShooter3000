@@ -10,8 +10,10 @@ class Animator():
         '''
 
         self.gameobject = gameobject
+        # all available animations in this Animator
         self.animations = {}
 
+        # the currently playing animation
         self.current_animation = None
         self._current_animation_name = ''
 
@@ -19,7 +21,7 @@ class Animator():
     def update(self, delta_time) -> None:
         ''' updates the Animator
 
-        :param delta_time (int): time since last frame
+        :param delta_time (int): the time since last frame
 
         :returns: NoReturn
         :rtype: None
@@ -75,11 +77,16 @@ class Animator():
             self.current_animation._current_frame = old_frame
 
 
-    def copy(self, gameObject):
-        '''
+    def copy(self, gameobject):
+        ''' returns a copy of this Animator
+
+        :param gameobject (GameObject): the gameObject that will be attached to the new Animator
+
+        :returns: a copy of this Animator
+        :rtype: Animator
         '''
 
-        animator_copy = Animator(gameObject)
+        animator_copy = Animator(gameobject)
 
         for anim_name in self.animations:
             animator_copy.animations[anim_name] = self.animations[anim_name].copy()

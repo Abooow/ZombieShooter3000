@@ -11,8 +11,11 @@ from framework.vector2 import Vector2
 from framework.gameobject import GameObject
 from scripts.characters.character import Character
 from scripts.weapons.pump_shotgun import PumpShotgun
+from scripts.weapons.death_bullet import DeathBullet
 from scripts.weapons.shotgun import Shotgun
 from scripts.weapons.glock import Glock
+from scripts.weapons.nuke import Nuke
+from scripts.weapons.scar import Scar
 from scripts.weapons.ak47 import Ak47
 from scripts.weapons.uzi import Uzi
 
@@ -37,7 +40,7 @@ class Player(Character):
         self.add_sprite_renderer(sorting_order=4)
         self.add_collider(tag='player', size=Vector2(50, 50))  
 
-        self.weapons = [Glock(self), Uzi(self), Shotgun(self), PumpShotgun(self), Ak47(self)]
+        self.weapons = [Glock(self), Uzi(self), Shotgun(self), PumpShotgun(self), Ak47(self), Scar(self), DeathBullet(self), Nuke(self)]
         self.current_gun = self.weapons[2]
 
         self.add_animator()
@@ -58,6 +61,15 @@ class Player(Character):
         # ak47 animations
         self.animator.add_animation('ak47_shoot', animation_manager.get('glock_shoot'))
         self.animator.add_animation('ak47_reload', animation_manager.get('glock_reload'))
+        # scar animations
+        self.animator.add_animation('scar_shoot', animation_manager.get('glock_shoot'))
+        self.animator.add_animation('scar_reload', animation_manager.get('glock_reload'))
+        # death bullet animations
+        self.animator.add_animation('death_bullet_shoot', animation_manager.get('glock_shoot'))
+        self.animator.add_animation('death_bullet_reload', animation_manager.get('glock_reload'))
+        # nuke animations
+        self.animator.add_animation('nuke_shoot', animation_manager.get('glock_shoot'))
+        self.animator.add_animation('nuke_reload', animation_manager.get('glock_reload'))
         
         # glock
         self.animator.animations['glock_shoot'].on_done = self._shoot_done
@@ -74,6 +86,15 @@ class Player(Character):
         # ak47
         self.animator.animations['ak47_shoot'].on_done = self._shoot_done
         self.animator.animations['ak47_reload'].on_done = self.weapons[4].on_reload_done
+        # scar
+        self.animator.animations['scar_shoot'].on_done = self._shoot_done
+        self.animator.animations['scar_reload'].on_done = self.weapons[5].on_reload_done
+        # death bullet
+        self.animator.animations['death_bullet_shoot'].on_done = self._shoot_done
+        self.animator.animations['death_bullet_reload'].on_done = self.weapons[6].on_reload_done
+        # nuke
+        self.animator.animations['nuke_shoot'].on_done = self._shoot_done
+        self.animator.animations['nuke_reload'].on_done = self.weapons[7].on_reload_done
 
 
     def update(self, delta_time):
@@ -184,6 +205,12 @@ class Player(Character):
             self.current_gun = self.weapons[3]
         elif event_handler.is_key_down(pygame.K_5): # ak47
             self.current_gun = self.weapons[4]
+        elif event_handler.is_key_down(pygame.K_6): # scar
+            self.current_gun = self.weapons[5]
+        elif event_handler.is_key_down(pygame.K_7): # death bullet
+            self.current_gun = self.weapons[6]
+        elif event_handler.is_key_down(pygame.K_8): # nuke
+            self.current_gun = self.weapons[7]
 
 
     def _camera_follow(self, camera):
@@ -203,5 +230,17 @@ class Player(Character):
         
         if camera.transform.position.y <= 0:
             camera.transform.position.y = 0
-        elif camera.transform.position.y >= utils.world_size[1] - camera.size.y:
-            camera.transform.position.y = utils.world_size[1] - camera.size.y
+        elif camera.transform.position.y >= utils.world_size[1] - camera.size.y + 20:
+            camera.transform.position.y = utils.world_size[1] - camera.size.y + 20
+
+
+    def on_render(self, surface):
+        super().on_render(surface)
+
+        # display weapon name
+        weapon = self.current_gun
+        bullets = weapon.bullets % weapon.magazine_size + 1 if not weapon.reloading else 0
+        magazines = weapon.bullets // weapon.magazine_size * weapon.magazine_size if not weapon.reloading else weapon.bullets // weapon.magazine_size * weapon.magazine_size + weapon.magazine_size
+        text = f'{self.current_gun.name} | {bullets}/{magazines}'
+        position = Screen.get_current_screen().camera.world_to_screen_point(self.transform.position - Vector2(len(text) * 0.25 * 11, 55)).to_tuple()
+        utils.draw_font(surface, text, (255, 255, 255), position, size=11, bold=True)

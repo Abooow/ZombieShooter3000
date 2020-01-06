@@ -42,11 +42,13 @@ class LoadScreen(Screen):
         sound_manager.add_effect('shotgun', 'content/sounds/effects/weapons/shotgun.wav')
         sound_manager.add_effect('pump_shotgun', 'content/sounds/effects/weapons/pump_shotgun.wav')
         sound_manager.add_effect('ak47', 'content/sounds/effects/weapons/ak47.wav')
+        sound_manager.add_effect('scar', 'content/sounds/effects/weapons/scar.wav')
         sound_manager.add_effect('glock_reload', 'content/sounds/effects/weapons/glock_reload.wav')
         sound_manager.add_effect('uzi_reload', 'content/sounds/effects/weapons/uzi_reload.wav')
         sound_manager.add_effect('shotgun_reload', 'content/sounds/effects/weapons/shotgun_reload.wav')
         sound_manager.add_effect('pump_shotgun_reload', 'content/sounds/effects/weapons/pump_shotgun_reload.wav')
         sound_manager.add_effect('ak47_reload', 'content/sounds/effects/weapons/ak47_reload.wav')
+        sound_manager.add_effect('scar_reload', 'content/sounds/effects/weapons/scar_reload.wav')
         # other
         sound_manager.add_effect('new_wave', 'content/sounds/effects/new_wave.wav')
         sound_manager.add_effect('player_hurt', 'content/sounds/effects/player_hurt.wav')
@@ -67,6 +69,9 @@ class LoadScreen(Screen):
         # effects
         sprite_manager.add('blood0', 'content/sprites/effects/blood0.png')
         sprite_manager.add('bullet', 'content/sprites/effects/bullet.png')
+        # tiles
+        sprite_manager.add('grass', 'content/sprites/tiles/grass.png')
+        sprite_manager.add('gravel', 'content/sprites/tiles/gravel.png')
         # GUI
         sprite_manager.add('menu_screen', 'content/sprites/menu_screen.png')
         sprite_manager.add('death_screen', 'content/sprites/death_screen.png')

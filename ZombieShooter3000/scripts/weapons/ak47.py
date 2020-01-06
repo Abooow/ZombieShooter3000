@@ -14,6 +14,7 @@ class Ak47(Weapon):
     def __init__(self, owner):
         super().__init__(owner=owner, bullet_offset=Vector2(47, 15), damage=100, spread=1, bullets=1000000, magazine_size=30, fire_rate=130)
         
+        self.name = 'AK47'
         self.bullet_speed = 800
         self.bullet_max_distance = 1069
 

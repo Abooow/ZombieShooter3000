@@ -19,12 +19,12 @@ class EnemyWave():
         self.total_normal_zombies = 8 + int(self.velocity * 0.15 + wave * 0.65 + wave)
 
         for i in range(self.total_normal_zombies):
-            time = i * 200 + int(i/13) * 3000
+            time = i * 200 + int(i/15) * 3000
             pos = self.get_random_pos()
             self.enemies.append((time, 'normal_zombie', pos[0], pos[1]))
 
         for i in range(self.total_big_zombies):
-            time = i * 400 + int(i/10) * 2000
+            time = i * 300 + int(i/12) * 2000
             pos = self.get_random_pos()
             self.enemies.append((time, 'big_zombie', pos[0], pos[1]))
 

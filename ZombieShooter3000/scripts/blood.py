@@ -18,7 +18,7 @@ class Blood(GameObject):
         '''
         '''
 
-        if Blood.total_objects < 20:
+        if Blood.total_objects < 40:
             Screen.get_current_screen().object_handler.instantiate(Blood(position))
             Blood.total_objects += 1
 
