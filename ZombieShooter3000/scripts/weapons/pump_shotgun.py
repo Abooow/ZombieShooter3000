@@ -13,7 +13,7 @@ class PumpShotgun(Weapon):
 
 
     def __init__(self, owner):
-        super().__init__(owner=owner, bullet_offset=Vector2(47, 15), damage=15, spread=12, bullets=1000000, magazine_size=6, fire_rate=450)
+        super().__init__(owner=owner, bullet_offset=Vector2(47, 15), damage=25, spread=12, bullets=1000000, magazine_size=6, fire_rate=400)
         
         self.name = 'PUMP SHOTGUN'
         self.bullet_speed = 730

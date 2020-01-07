@@ -6,7 +6,6 @@ import sprite_manager
 import animation_manager
 
 from screens.screen import Screen
-from screens.new_screen import NewScreen
 from framework.animation import Animation
 from scripts.enemy_wave import EnemyWave
 

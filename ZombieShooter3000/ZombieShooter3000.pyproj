@@ -25,9 +25,6 @@
     <Compile Include="animation_manager.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="config.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="event_handler.py">
       <SubType>Code</SubType>
     </Compile>
@@ -89,16 +86,7 @@
     <Compile Include="screens\menu_screen.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="screens\new_screen.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="screens\object_screen.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="screens\screen.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="screens\test_screen.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="screens\__init__.py">
